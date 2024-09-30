@@ -36,7 +36,7 @@ clearnpm(){
 
 ss() { . $MOZHU_PLUGIN_DIR/libs/ss.zsh $1 }
 initjava() { . $MOZHU_PLUGIN_DIR/libs/initjava.zsh $1 }
-sshkey() { . $MOZHU_PLUGIN_DIR/libs/sshkey.zsh $1 }
+sshkey() { . $MOZHU_PLUGIN_DIR/libs/sshkey.zsh $@ }
 
 newtag() {
     # TODO: use virzz cli [newtag]
