@@ -2,15 +2,6 @@ MOZHU_PLUGIN_DIR=$(dirname $0)
 ############################
 # Custom Function
 ############################
-kubectl(){
-    if [[ -z "$KUBECONFIG" ]];then
-        echo "Please set KUBECONFIG"
-        return
-    fi
-    command kubectl $@
-}
-
-
 sshl(){
     local n=$1
     if [[ -z "$n" ]]; then
@@ -34,9 +25,22 @@ clearnpm(){
     echo "Successfully"
 }
 
-ss() { . $MOZHU_PLUGIN_DIR/libs/ss.zsh $1 }
-initjava() { . $MOZHU_PLUGIN_DIR/libs/initjava.zsh $1 }
-sshkey() { . $MOZHU_PLUGIN_DIR/libs/sshkey.zsh $@ }
+ssh() { 
+    . $MOZHU_PLUGIN_DIR/libs/ssh.zsh $1
+}
+ss() { 
+    . $MOZHU_PLUGIN_DIR/libs/ss.zsh $1
+}
+initjava() {
+    . $MOZHU_PLUGIN_DIR/libs/initjava.zsh $1
+}
+sshkey() {
+    . $MOZHU_PLUGIN_DIR/libs/sshkey.zsh $1
+}
+datetime() {
+    . $MOZHU_PLUGIN_DIR/libs/datetime.zsh $1
+}
+alias ts=datetime
 
 newtag() {
     # TODO: use virzz cli [newtag]
@@ -61,13 +65,12 @@ uniq_path
 
 . $MOZHU_PLUGIN_DIR/libs/virzz.zsh
 
-source <(kubectl completion zsh)
-
 ############################
 # alias
 ############################
 alias vi='vim'
-alias rm='trash'
+
+which trash &>/dev/null && alias rm='trash'
 
 alias ghcs='gh copilot suggest -t shell'
 alias ghce='gh copilot explain'
@@ -109,5 +112,3 @@ alias sshx='ssh -o StrictHostKeyChecking=no '
 alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no '
 
 alias grep=ggrep
-
-alias lego="lego -m $LEGO_ACCOUNT_EMAIL"
